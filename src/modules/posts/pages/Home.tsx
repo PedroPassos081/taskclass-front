@@ -23,7 +23,7 @@ const NewButton = styled.button`
   padding: .6rem .9rem;
   border-radius: 10px;
   border: 1px solid ${({theme}) => theme.colors.border};
-  background: ${({theme}) => theme.colors.primary};
+  background-color: #020086;
   color: #fff;
   font-weight: 700;
   cursor: pointer;
