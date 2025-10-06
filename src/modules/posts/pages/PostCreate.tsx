@@ -3,6 +3,7 @@ import styled from 'styled-components'
 import { api } from '@/services/api'
 import { useNavigate } from 'react-router-dom'
 
+
 const Card = styled.form`
   max-width: 680px;
   margin: 1rem auto;
