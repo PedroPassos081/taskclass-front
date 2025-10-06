@@ -1,7 +1,8 @@
 import { FormEvent, useState } from 'react'
 import styled from 'styled-components'
 import { api } from '@/services/api'
-import { useNavigate } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
+
 
 
 const Card = styled.form`
@@ -20,18 +21,31 @@ const Field = styled.div`
     padding: .7rem .9rem;
     border-radius: 10px;
     border: 1px solid ${({theme}) => theme.colors.border};
-    background: #0f1630;
+    background: #ffff;
     color: ${({theme}) => theme.colors.text};
   }
   textarea { min-height: 220px; }
 `
+const ButtonLink = styled(Link)`
+ display: inline-block;
+ padding: .8rem 1rem;
+ border-radius: 12px;
+ border: 1px solid ${({theme}) => theme.colors.border};
+ background: #ff4757;
+ color: #fff;
+ font-weight: 600;
+ text-align: center;
+ cursor: pointer;
+ text-decoration: none;
+`;
+
 const Row = styled.div` display: flex; gap: .75rem; `
 const Button = styled.button`
   padding: .8rem 1rem;
   border-radius: 12px;
   border: 1px solid ${({theme}) => theme.colors.border};
   background: ${({theme}) => theme.colors.primary};
-  color: #0b0f1a;
+  color: #fff;
   font-weight: 600;
 `
 
@@ -39,6 +53,8 @@ export function PostCreate() {
   const [title, setTitle] = useState('')
   const [author, setAuthor] = useState('')
   const [content, setContent] = useState('')
+  const [disciplina, setDisciplina] = useState(''); 
+  const [turma, setTurma] = useState(''); 
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState<string | null>(null)
   const navigate = useNavigate()
@@ -58,7 +74,7 @@ export function PostCreate() {
 
   return (
     <Card onSubmit={onSubmit}>
-      <h2>Novo Post</h2>
+      <h2>Nova Atividade</h2>
       <Field>
         <label htmlFor="title">Título</label>
         <input id="title" value={title} onChange={e=>setTitle(e.target.value)} required />
@@ -68,12 +84,21 @@ export function PostCreate() {
         <input id="author" value={author} onChange={e=>setAuthor(e.target.value)} required />
       </Field>
       <Field>
+        <label htmlFor="disciplina">Disciplina</label>
+        <input id="disciplina" value={disciplina} onChange={e => setDisciplina(e.target.value)} required />
+      </Field>
+      <Field>
+        <label htmlFor="turma">Turma</label>
+        <input id="turma" value={turma} onChange={e => setTurma(e.target.value)} />
+      </Field>
+      <Field>
         <label htmlFor="content">Conteúdo</label>
         <textarea id="content" value={content} onChange={e=>setContent(e.target.value)} required />
       </Field>
       {error && <p role="alert" style={{color:'#ff8080'}}>{error}</p>}
       <Row>
         <Button disabled={loading}>{loading ? 'Enviando...' : 'Publicar'}</Button>
+        <ButtonLink to="/posts">Voltar</ButtonLink>
       </Row>
     </Card>
   )
